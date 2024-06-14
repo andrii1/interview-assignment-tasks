@@ -1,8 +1,8 @@
 .landing-page-container {
-  color: #687808;
+  /* color: #687808; */
 }
 
-.tasks-container-outer {
+.tasks-container-wrapper {
   border: 1px solid grey;
   border-radius: 1rem;
 
@@ -23,4 +23,17 @@
   display: flex;
   gap: 0.5rem;
   align-items: center;
+}
+
+.add-task-form {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.edit-task-form {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }

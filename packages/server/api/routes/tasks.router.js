@@ -129,11 +129,16 @@ router.post('/', (req, res) => {
  *      5XX:
  *        description: Unexpected error.
  */
-router.patch('/:id', (req, res, next) => {
+router.patch('/:id', (req, res) => {
   tasksController
     .editTask(req.params.id, req.body)
     .then((result) => res.json(result))
-    .catch(next);
+    .catch((error) => {
+      // eslint-disable-next-line no-console
+      console.log(error);
+
+      res.status(400).send('Bad request').end();
+    });
 });
 
 /**

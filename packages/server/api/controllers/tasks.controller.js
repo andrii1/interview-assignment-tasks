@@ -32,11 +32,14 @@ const editTask = async (taskId, updatedTask) => {
     throw new HttpError('taskId should be a number', 400);
   }
 
-  return knex('tasks').where({ id: taskId }).update({
+  await knex('tasks').where({ id: taskId }).update({
     title: updatedTask.title,
     description: updatedTask.description,
-    updatedAt: moment().format(),
   });
+
+  return {
+    successful: true,
+  };
 };
 
 const deleteTask = async (taskId) => {
