@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { apiURL } from '../../apiURL';
+import { Button } from '../../components/Button/Button.component';
 import './LandingPage.Style.css';
 
 export const LandingPage = () => {
@@ -27,13 +28,19 @@ export const LandingPage = () => {
 
   return (
     <div className="landing-page-container">
-      <span>Landing Page</span>
-      {exampleResources.map((example) => (
-        <div key={example.id}>{example.title}</div>
-      ))}
-      {tasks.map((example) => (
-        <div key={example.id}>{example.title}</div>
-      ))}
+      <h1>Task manager</h1>
+      <div className="tasks-container-outer">
+        <div className="tasks-container">
+          {tasks.map((task, id) => (
+            <div className="task-container" key={task.id}>
+              <span>{`${id + 1}. ${task.title} (${task.description})`}</span>
+              <Button label="Edit" />
+              <Button primary backgroundColor="#F54D4D" label="Delete" />
+            </div>
+          ))}
+          <Button primary label="Add a task" />
+        </div>
+      </div>
     </div>
   );
 };
