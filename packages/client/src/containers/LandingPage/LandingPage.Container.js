@@ -1,16 +1,15 @@
 import React, { useEffect, useState, useCallback } from 'react';
+import { NavLink, Link } from 'react-router-dom';
 import { apiURL } from '../../apiURL';
 import { Button } from '../../components/Button/Button.component';
 import './LandingPage.Style.css';
+import { useUserContext } from '../../userContext';
 
 export const LandingPage = () => {
-  const [editingTasks, setEditingTasks] = useState([]);
-  const [editingTasksTitles, setEditingTasksTitles] = useState([]);
+  const { user, name, logout } = useUserContext();
   const [tasks, setTasks] = useState([]);
   const [taskTitle, setTaskTitle] = useState('');
   const [taskDescription, setTaskDescription] = useState('');
-  const [taskTitleUpdated, setTaskTitleUpdated] = useState('');
-  const [taskDescriptionUpdated, setTaskDescriptionUpdated] = useState('');
 
   // const fetchTasks = useCallback(() => {
   //   const url = `${apiURL()}/tasks`;
@@ -189,6 +188,28 @@ export const LandingPage = () => {
   return (
     <section className="landing-page-container">
       <h1>Task manager</h1>
+      <div className="container-login">
+        {user ? (
+          <div className="container-logged-in">
+            <span>Hello, {name}</span>
+            <Button label="Log out" onClick={logout} />
+          </div>
+        ) : (
+          <ul className="container-logged-out">
+            <li>
+              <NavLink to="/login" className="login">
+                Log in
+              </NavLink>
+            </li>
+            <li>
+              <Link to="/signup" className="signup">
+                <Button primary label="Sign up" />
+              </Link>
+            </li>
+          </ul>
+        )}
+      </div>
+
       <div className="tasks-container-wrapper">
         <div className="tasks-container">
           {tasks.map((task, id) => (

@@ -12,7 +12,7 @@ export const Signup = () => {
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
 
-  const addUserToDb = useCallback(async (userCreated, fullName) => {
+  const addUserToDb = useCallback(async (userCreated) => {
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -30,7 +30,7 @@ export const Signup = () => {
   useEffect(() => {
     if (loading) return;
     if (user) {
-      addUserToDb(user, name);
+      addUserToDb(user);
       navigate('/');
     }
   }, [user, name, loading, addUserToDb, navigate]);

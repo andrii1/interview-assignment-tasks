@@ -5,8 +5,7 @@ import { Button } from '../../components/Button/Button.component';
 import './Login.Style.css';
 
 function Login() {
-  const { logInWithEmailAndPassword, signInWithGoogle, loading, user } =
-    useUserContext();
+  const { logInWithEmailAndPassword, loading, user } = useUserContext();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
@@ -40,12 +39,6 @@ function Login() {
           onClick={() => logInWithEmailAndPassword(email, password)}
           backgroundColor="#000"
           label="Log in"
-        />
-        <Button
-          primary
-          onClick={signInWithGoogle}
-          backgroundColor="#4285f4"
-          label="Sign in with Google"
         />
         <div>
           <Link className="form-additional-link" to="/reset">

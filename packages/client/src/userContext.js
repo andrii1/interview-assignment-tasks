@@ -8,7 +8,6 @@ import React, {
 } from 'react';
 import PropTypes from 'prop-types';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { apiURL } from './apiURL';
 import {
   auth,
   db,
@@ -24,7 +23,6 @@ export const UserContext = createContext();
 export function UserProvider({ children }) {
   const [user, loading] = useAuthState(auth);
   const [name, setName] = useState('');
-
   const fetchUserName = useCallback(async () => {
     try {
       const q = query(collection(db, 'users'), where('uid', '==', user?.uid));
@@ -48,9 +46,7 @@ export function UserProvider({ children }) {
       db,
       name,
       loading,
-
       logInWithEmailAndPassword,
-
       registerWithEmailAndPassword,
       logout,
       sendPasswordReset,

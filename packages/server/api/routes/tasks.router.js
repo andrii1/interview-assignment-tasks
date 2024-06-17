@@ -25,8 +25,9 @@ const tasksController = require('../controllers/tasks.controller');
  *        description: Unexpected error.
  */
 router.get('/', (req, res, next) => {
+  const { token } = req.headers;
   tasksController
-    .getTasks()
+    .getTasks(token)
     .then((result) => res.json(result))
     .catch(next);
 });
@@ -90,8 +91,9 @@ router.get('/:id', (req, res, next) => {
  *        description: Unexpected error.
  */
 router.post('/', (req, res) => {
+  const { token } = req.headers;
   tasksController
-    .createTask(req.body)
+    .createTask(token, req.body)
     .then((result) => res.json(result))
     .catch((error) => {
       // eslint-disable-next-line no-console
@@ -130,8 +132,9 @@ router.post('/', (req, res) => {
  *        description: Unexpected error.
  */
 router.patch('/:id', (req, res) => {
+  const { token } = req.headers;
   tasksController
-    .editTask(req.params.id, req.body)
+    .editTask(token, req.params.id, req.body)
     .then((result) => res.json(result))
     .catch((error) => {
       // eslint-disable-next-line no-console
@@ -141,29 +144,10 @@ router.patch('/:id', (req, res) => {
     });
 });
 
-/**
- * @swagger
- * /tasks/{ID}:
- *  delete:
- *    tags:
- *    - tasks
- *    summary: Delete an task
- *    description:
- *      Will delete a task with a given ID.
- *    produces: application/json
- *    parameters:
- *      - in: path
- *        name: ID
- *        description: ID of the task to delete.
- *    responses:
- *      200:
- *        description: task deleted
- *      5XX:
- *        description: Unexpected error.
- */
 router.delete('/:id', (req, res) => {
+  const { token } = req.headers;
   tasksController
-    .deleteTask(req.params.id, req)
+    .deleteTask(token, req.params.id)
     .then((result) => {
       // If result is equal to 0, then that means the task id does not exist
       if (result === 0) {

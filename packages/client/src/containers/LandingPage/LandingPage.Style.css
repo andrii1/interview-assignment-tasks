@@ -37,3 +37,29 @@
   align-items: center;
   gap: 0.5rem;
 }
+
+.container-logged-out {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  justify-content: center;
+  max-width: 30rem;
+  margin: 0 auto;
+  padding-left: 0rem;
+}
+
+.container-logged-in {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  justify-content: center;
+  max-width: 30rem;
+  margin: 0 auto;
+}
+ul li {
+  list-style: none;
+}
+
+.container-login {
+  margin-bottom: 1rem;
+}
