@@ -11,19 +11,6 @@ export const LandingPage = () => {
   const [taskTitle, setTaskTitle] = useState('');
   const [taskDescription, setTaskDescription] = useState('');
 
-  // const fetchTasks = useCallback(() => {
-  //   const url = `${apiURL()}/tasks`;
-  //   fetch(url, {
-  //     headers: {
-  //       token: `token ${user?.uid}`,
-  //     },
-  //   })
-  //     .then((res) => res.json())
-  //     .then((items) => {
-  //       setTasks(items);
-  //     });
-  // }, [user]);
-
   const fetchTasks = useCallback(() => {
     const url = `${apiURL()}/tasks`;
     fetch(url, {
