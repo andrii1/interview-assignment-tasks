@@ -12,12 +12,10 @@ const getTasks = async (token) => {
       throw new HttpError('User not found', 401);
     }
 
-    await knex('tasks')
+    const tasks = await knex('tasks')
       .select('tasks.id', 'tasks.title', 'tasks.description')
-      .where({ id: taskId, user_id: user.id });
-    return {
-      successful: true,
-    };
+      .where({ user_id: user.id });
+    return tasks;
   } catch (error) {
     return error.message;
   }

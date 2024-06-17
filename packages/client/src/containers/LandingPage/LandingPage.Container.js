@@ -26,7 +26,11 @@ export const LandingPage = () => {
 
   const fetchTasks = useCallback(() => {
     const url = `${apiURL()}/tasks`;
-    fetch(url)
+    fetch(url, {
+      headers: {
+        token: `token ${user?.uid}`,
+      },
+    })
       .then((res) => res.json())
       .then((items) => {
         setTasks(
@@ -40,7 +44,7 @@ export const LandingPage = () => {
           }),
         );
       });
-  }, []);
+  }, [user]);
 
   useEffect(() => {
     fetchTasks();
@@ -71,6 +75,7 @@ export const LandingPage = () => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        token: `token ${user?.uid}`,
       },
       body: JSON.stringify({
         title,
@@ -98,6 +103,7 @@ export const LandingPage = () => {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
+        token: `token ${user?.uid}`,
       },
       body: JSON.stringify({
         title: filteredTask[0].title,
@@ -175,6 +181,9 @@ export const LandingPage = () => {
     const deleteTasks = async () => {
       const response = await fetch(`${apiURL()}/tasks/${tasksId} `, {
         method: 'DELETE',
+        headers: {
+          token: `token ${user?.uid}`,
+        },
       });
 
       if (response.ok) {
@@ -210,88 +219,95 @@ export const LandingPage = () => {
         )}
       </div>
 
-      <div className="tasks-container-wrapper">
-        <div className="tasks-container">
-          {tasks.map((task, id) => (
-            <div className="task-container" key={task.id}>
-              {!task.editing && (
-                <>
-                  <span>{`${id + 1}. ${task.title} (${
-                    task.description
-                  })`}</span>
-                  <Button
-                    label="Edit"
-                    onClick={() => {
-                      handleTasksEditing(task.id);
-                    }}
-                  />
-                </>
-              )}
-              {task.editing && (
-                <>
-                  <span>{`${id + 1}.`} </span>
-                  <form
-                    className="edit-task-form"
-                    onSubmit={(event) => {
-                      handleUpdate(event, task.id);
-                    }}
-                  >
-                    <label>Task title:</label>
-                    <input
-                      type="text"
-                      required
-                      value={task.title}
-                      onChange={(e) => {
-                        handleTasksEditingTitle(task.id, e.target.value);
+      {user ? (
+        <div className="tasks-container-wrapper">
+          <div className="tasks-container">
+            {tasks.map((task, id) => (
+              <div className="task-container" key={task.id}>
+                {!task.editing && (
+                  <>
+                    <span>{`${id + 1}. ${task.title} (${
+                      task.description
+                    })`}</span>
+                    <Button
+                      label="Edit"
+                      onClick={() => {
+                        handleTasksEditing(task.id);
                       }}
                     />
-                    <label>Task description:</label>
-                    <input
-                      type="text"
-                      required
-                      value={task.description}
-                      onChange={(e) => {
-                        handleTasksEditingDescription(task.id, e.target.value);
+                  </>
+                )}
+                {task.editing && (
+                  <>
+                    <span>{`${id + 1}.`} </span>
+                    <form
+                      className="edit-task-form"
+                      onSubmit={(event) => {
+                        handleUpdate(event, task.id);
                       }}
-                    />
-                    <Button type="submit" primary label="Save" />
-                  </form>
-                </>
-              )}
+                    >
+                      <label>Task title:</label>
+                      <input
+                        type="text"
+                        required
+                        value={task.title}
+                        onChange={(e) => {
+                          handleTasksEditingTitle(task.id, e.target.value);
+                        }}
+                      />
+                      <label>Task description:</label>
+                      <input
+                        type="text"
+                        required
+                        value={task.description}
+                        onChange={(e) => {
+                          handleTasksEditingDescription(
+                            task.id,
+                            e.target.value,
+                          );
+                        }}
+                      />
+                      <Button type="submit" primary label="Save" />
+                    </form>
+                  </>
+                )}
 
-              <Button
-                primary
-                backgroundColor="#F54D4D"
-                label="Delete"
-                onClick={() => {
-                  handleDeleteTasks(task.id);
+                <Button
+                  primary
+                  backgroundColor="#F54D4D"
+                  label="Delete"
+                  onClick={() => {
+                    handleDeleteTasks(task.id);
+                  }}
+                />
+              </div>
+            ))}
+            <form className="add-task-form" onSubmit={handleSubmit}>
+              <label>Task title:</label>
+              <input
+                type="text"
+                required
+                value={taskTitle}
+                onChange={(e) => {
+                  setTaskTitle(e.target.value);
                 }}
               />
-            </div>
-          ))}
-          <form className="add-task-form" onSubmit={handleSubmit}>
-            <label>Task title:</label>
-            <input
-              type="text"
-              required
-              value={taskTitle}
-              onChange={(e) => {
-                setTaskTitle(e.target.value);
-              }}
-            />
-            <label>Task description:</label>
-            <input
-              type="text"
-              required
-              value={taskDescription}
-              onChange={(e) => {
-                setTaskDescription(e.target.value);
-              }}
-            />
-            <Button type="submit" primary label="Add a task" />
-          </form>
+              <label>Task description:</label>
+              <input
+                type="text"
+                required
+                value={taskDescription}
+                onChange={(e) => {
+                  setTaskDescription(e.target.value);
+                }}
+              />
+              <Button type="submit" primary label="Add a task" />
+            </form>
+          </div>
         </div>
-      </div>
+      ) : (
+        'You need to create an account to manage tasks'
+      )}
     </section>
   );
 };

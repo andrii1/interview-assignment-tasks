@@ -2,8 +2,8 @@ const express = require('express');
 
 const router = express.Router();
 
-const exampleResources = require('./exampleResources.router');
 const tasks = require('./tasks.router');
+const users = require('./users.router');
 
 /* GET home page. */
 // router.get('/', function(req, res, next) {
@@ -33,7 +33,7 @@ const swaggerDocument = swaggerJsDoc(swaggerOptions);
 // Route for Swagger API Documentation
 router.use('/documentation', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-router.use('/exampleResources', exampleResources);
 router.use('/tasks', tasks);
+router.use('/users', users);
 
 module.exports = router;

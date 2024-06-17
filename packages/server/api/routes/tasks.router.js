@@ -8,22 +8,6 @@ const router = express.Router({ mergeParams: true });
 // controllers
 const tasksController = require('../controllers/tasks.controller');
 
-/**
- * @swagger
- * /task:
- *  get:
- *    tags:
- *    - task
- *    summary: Get all tasks
- *    description:
- *      Will return all task.
- *    produces: application/json
- *    responses:
- *      200:
- *        description: Successful request
- *      5XX:
- *        description: Unexpected error.
- */
 router.get('/', (req, res, next) => {
   const { token } = req.headers;
   tasksController
@@ -32,30 +16,6 @@ router.get('/', (req, res, next) => {
     .catch(next);
 });
 
-/**
- * @swagger
- * /tasks/{ID}:
- *  get:
- *    tags:
- *    - tasks
- *    summary: Get task by ID
- *    description:
- *      Will return single task with a matching ID.
- *    produces: application/json
- *    parameters:
- *     - in: path
- *       name: ID
- *       schema:
- *         type: integer
- *         required: true
- *         description: The ID of the task to get
- *
- *    responses:
- *      200:
- *        description: Successful request
- *      5XX:
- *        description: Unexpected error.
- */
 router.get('/:id', (req, res, next) => {
   tasksController
     .getTaskById(req.params.id)
@@ -63,33 +23,6 @@ router.get('/:id', (req, res, next) => {
     .catch(next);
 });
 
-/**
- * @swagger
- * /tasks:
- *  post:
- *    tags:
- *    - tasks
- *    summary: Create a task
- *    description:
- *      Will create a task.
- *    produces: application/json
- *    parameters:
- *      - in: body
- *        name: task
- *        description: The task to create.
- *        schema:
- *          type: object
- *          required:
- *            - title
- *          properties:
- *            title:
- *              type: string
- *    responses:
- *      201:
- *        description: tasks created
- *      5XX:
- *        description: Unexpected error.
- */
 router.post('/', (req, res) => {
   const { token } = req.headers;
   tasksController
@@ -103,34 +36,6 @@ router.post('/', (req, res) => {
     });
 });
 
-/**
- * @swagger
- * /tasks/{ID}:
- *  patch:
- *    tags:
- *    - tasks
- *    summary: Create an task
- *    description:
- *      Will create an task.
- *    produces: application/json
- *    parameters:
- *      - in: path
- *        name: ID
- *        description: ID of the task to patch.
- *      - in: body
- *        name: task
- *        description: The task to create.
- *        schema:
- *          type: object
- *          properties:
- *            title:
- *              type: string
- *    responses:
- *      200:
- *        description: task was patched
- *      5XX:
- *        description: Unexpected error.
- */
 router.patch('/:id', (req, res) => {
   const { token } = req.headers;
   tasksController
