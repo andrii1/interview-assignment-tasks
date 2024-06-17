@@ -80,6 +80,8 @@ export const LandingPage = () => {
     }).then((res) => {
       if (res.ok) {
         fetchTasks();
+        setTaskTitle('');
+        setTaskDescription('');
       }
     });
   };
