@@ -50,8 +50,6 @@ export const LandingPage = () => {
     fetchTasks();
   }, [fetchTasks]);
 
-  console.log(tasks);
-
   // const addTask = (key) => {
   //   fetch(`${apiURL()}/tasks`, {
   //     method: 'POST',
