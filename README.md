@@ -9,6 +9,9 @@
 
 # Task Management:
 
+<img width="745" alt="Screenshot 2024-07-23 at 1 52 08 PM" src="https://github.com/user-attachments/assets/36df3c15-fbcd-42ba-93d7-abe205061b9f">
+
+
 - Users should be able to create a new task with a title and description.
 - Users should be able to view a list of all their tasks.
 - Users should be able to update the title and description of their tasks.
