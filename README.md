@@ -1,9 +1,8 @@
 ### A simple web application for managing tasks. Users should be able to create an account, log in, create, read, update, and delete tasks.
 
-<img width="653" alt="Screenshot 2024-07-23 at 1 51 45 PM" src="https://github.com/user-attachments/assets/d988974a-ff53-4d24-a971-2b06f3f7ed1f">
-
-
 # User Authentication:
+
+<img width="653" alt="Screenshot 2024-07-23 at 1 51 45 PM" src="https://github.com/user-attachments/assets/d988974a-ff53-4d24-a971-2b06f3f7ed1f">
 
 - Users should be able to register with their email and password.
 - Users should be able to log in and log out.
